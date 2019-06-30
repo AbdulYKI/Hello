@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatingApp.API.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(IAuthRepository))]
     [Migration("20190621235405_InitialCreate")]
     partial class InitialCreate
     {
