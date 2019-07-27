@@ -1,18 +1,39 @@
-<form #registerForm="ngForm" (ngSubmit)="Register()">
-    <h2 class="text-center text-primary">Sign Up</h2>
-    <hr>
-  
-    <div class="form-group">
-      <input type="text" class="form-control" required name="username" placeholder="Username" [(ngModel)]="model.username">
-    </div>
-  
-    <div class="form-group">
-      <input type="password" class="form-control" required placeholder="Password" name="password" [(ngModel)]="model.password">
-    </div>
-  
-    <div class="form-group text-center">
-      <button class="btn btn-success mr-2" type="submit" [disabled]="!registerForm.valid">Register</button>
-      <button class="btn btn-danger " type="button" (click)="Cancel()">Cancel</button>
-    </div>
-    
-  </form>
+<form #registerForm="ngForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Sign Up</h2>
+  <hr />
+
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      required
+      name="username"
+      placeholder="Username"
+      [(ngModel)]="model.username"
+    />
+  </div>
+
+  <div class="form-group">
+    <input
+      type="password"
+      class="form-control"
+      required
+      placeholder="Password"
+      name="password"
+      [(ngModel)]="model.password"
+    />
+  </div>
+
+  <div class="form-group text-center">
+    <button
+      class="btn btn-success mr-2"
+      type="submit"
+      [disabled]="!registerForm.valid"
+    >
+      Register
+    </button>
+    <button class="btn btn-danger " type="button" (click)="cancel()">
+      Cancel
+    </button>
+  </div>
+</form>
