@@ -26,7 +26,7 @@ export class NavigationBarComponent implements OnInit {
         this.alertifyService.success("Logged In Successfully");
         this.userNameToDisplay = this.authService.decodedToken.unique_name;
       },
-      error => this.alertifyService.error(error.message),
+      error => this.alertifyService.error("Username or Password Is Incorrect"),
       () => {
         this.router.navigate(["/members"]);
       }

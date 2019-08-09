@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
         this.alertifyService.success("Registered Successfully");
       },
       error => {
-        this.alertifyService.error("Registration Failed");
+        this.alertifyService.error(error);
         return console.log(error);
       }
     );

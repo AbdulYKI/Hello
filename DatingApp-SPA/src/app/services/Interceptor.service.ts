@@ -4,7 +4,8 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HTTP_INTERCEPTORS
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
@@ -24,7 +25,7 @@ export class Interceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           const applicationError = error.headers.get("Application-Error");
           if (applicationError) {
-            return throwError(error);
+            return throwError(applicationError);
           }
           const serverError = error.error;
           let modalStateError = "";
@@ -39,3 +40,8 @@ export class Interceptor implements HttpInterceptor {
     );
   }
 }
+export const ErrorInterceptorProvider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: Interceptor,
+  multi: true
+};
