@@ -29,6 +29,7 @@
     "fontawesome": "^5.6.3",
     "install": "^0.13.0",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-gallery": "^5.3.2",
     "npm": "^6.10.2",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
