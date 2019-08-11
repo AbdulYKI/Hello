@@ -19,7 +19,7 @@ export class MemberDetailedComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   constructor(private route: ActivatedRoute) {}
-
+  tabHeader: string;
   ngOnInit() {
     this.route.data.subscribe(userData => (this.user = userData["user"]));
     this.getPhotos();
@@ -33,6 +33,7 @@ export class MemberDetailedComponent implements OnInit {
         imageAnimation: NgxGalleryAnimation.Slide
       }
     ];
+    this.tabHeader = "About" + " " + this.user.knownAs;
     console.log(this.galleryImages);
     console.log(this.galleryOptions);
   }

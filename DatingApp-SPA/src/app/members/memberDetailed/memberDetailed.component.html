@@ -1,6 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 mt-4">
+    <div class="col-sm-12 mt-4 ">
+      <h1>
+        <strong>{{ user.knownAs }}'s Profile</strong>
+      </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mt-3">
       <div class="card">
         <img
           [src]="user.photoUrl"
@@ -36,10 +43,10 @@
       </div>
     </div>
 
-    <div class="col-sm-8 mt-4">
+    <div class="col-sm-8 mt-3">
       <div class="tab-panel">
         <tabset class="member-tabset">
-          <tab [heading]="'About' + ' ' + user.knownAs">
+          <tab [heading]="tabHeader">
             <h4>Introduction:</h4>
             <p>{{ user.introduction }}</p>
 
