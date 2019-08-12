@@ -42,14 +42,17 @@ namespace DatingApp.API
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            //adds Cloudinaryy Strongly Typed Configuration
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             //adds cors specified in Configure(IApplicationBuilder app,IHostingEnvironment env)
             services.AddCors();
             //adds the authentication service
             services.AddScoped<IAuthRepository, AuthRepository>();
             //adds the DatingAppRepository service
             services.AddScoped<IDatingAppRepository, DatingAppRepository>();
-            //adds token authentication
+            //adds automapper 
             services.AddAutoMapper();
+            //adds token authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(Options =>
             {
