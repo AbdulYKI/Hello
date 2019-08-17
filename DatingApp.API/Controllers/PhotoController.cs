@@ -136,14 +136,9 @@ namespace DatingApp.API.Controllers
                 if (result.Result == "ok")
                     _repo.Delete(photoFromRepo);
 
-
-
             }
             else
                 _repo.Delete(photoFromRepo);
-
-
-
 
             if (await _repo.SaveAll())
                 return Ok();

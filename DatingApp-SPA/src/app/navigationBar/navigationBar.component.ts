@@ -30,7 +30,6 @@ export class NavigationBarComponent implements OnInit {
       next => {
         this.alertifyService.success("Logged In Successfully");
         this.userNameToDisplay = this.authService.decodedToken.unique_name;
-        this.photoUrl = this.authService.currentUser.photoUrl;
       },
       error => this.alertifyService.error("Username or Password Is Incorrect"),
       () => {

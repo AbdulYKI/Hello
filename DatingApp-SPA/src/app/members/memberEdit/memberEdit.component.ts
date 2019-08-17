@@ -53,9 +53,7 @@ export class MemberEditComponent implements OnInit, OnDestroy {
         error => this.alertifyService.error(error)
       );
   }
-  newMainPhotoSet(url: string): void {
-    this.user.photoUrl = url;
-  }
+
   ngOnDestroy() {
     this.destroy.next(true);
     this.destroy.unsubscribe();
