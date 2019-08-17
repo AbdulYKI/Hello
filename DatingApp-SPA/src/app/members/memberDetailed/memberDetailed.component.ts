@@ -10,7 +10,7 @@ import {
 } from "ngx-gallery";
 
 @Component({
-  selector: "app-memberDetailed",
+  selector: "app-member-detailed",
   templateUrl: "./memberDetailed.component.html",
   styleUrls: ["./memberDetailed.component.css"]
 })

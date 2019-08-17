@@ -14,7 +14,7 @@ import { NgForm } from "@angular/forms";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 @Component({
-  selector: "app-memberEdit",
+  selector: "app-member-edit",
   templateUrl: "./memberEdit.component.html",
   styleUrls: ["./memberEdit.component.css"]
 })
@@ -37,6 +37,9 @@ export class MemberEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.data.subscribe(data => (this.user = data["user"]));
+    this.authService.currentPhotoUrl.subscribe(
+      url => (this.user.photoUrl = url)
+    );
   }
   updateUser() {
     this.userService
@@ -49,6 +52,9 @@ export class MemberEditComponent implements OnInit, OnDestroy {
         },
         error => this.alertifyService.error(error)
       );
+  }
+  newMainPhotoSet(url: string): void {
+    this.user.photoUrl = url;
   }
   ngOnDestroy() {
     this.destroy.next(true);

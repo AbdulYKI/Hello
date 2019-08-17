@@ -1,4 +1,4 @@
-import { PreventUnsavedChangesGuard } from "./guards/prevent-unsaved-changes.guard";
+import { FileUploadModule } from "ng2-file-upload";
 import { MemberEditResolver } from "./../resolvers/memberEdit.resolver";
 import { JwtModule } from "@auth0/angular-jwt";
 import { AlertifyService } from "./services/AlertifyService.service";
@@ -13,6 +13,8 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { NgxGalleryModule } from "ngx-gallery";
 
+import { PhotoEditorComponent } from "./members/photoEditor/photoEditor.component";
+import { PreventUnsavedChangesGuard } from "./guards/prevent-unsaved-changes.guard";
 import { MemberEditComponent } from "./members/memberEdit/memberEdit.component";
 import { MembersListResolver } from "./../resolvers/membersList.resolver";
 import { MemberDetailedResolver } from "./../resolvers/memberDetailed.resolver";
@@ -27,6 +29,7 @@ import { MessagesComponent } from "./messages/messages.component";
 import { ListsComponent } from "./lists/lists.component";
 import { ErrorInterceptorProvider } from "./services/Interceptor.service";
 import { NavigationBarComponent } from "./navigationBar/navigationBar.component";
+import { TruncatePipe } from "./pipes/truncate.pipe";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -42,7 +45,9 @@ export function tokenGetter() {
     MemberDetailedComponent,
     MessagesComponent,
     ListsComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,7 @@ export function tokenGetter() {
         whitelistedDomains: ["localhost:5000"]
       }
     }),
+    FileUploadModule,
     NgxGalleryModule
   ],
   providers: [

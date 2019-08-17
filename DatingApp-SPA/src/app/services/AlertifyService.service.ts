@@ -5,11 +5,16 @@ declare let alertify: any;
   providedIn: "root"
 })
 export class AlertifyService {
-  constructor() {}
+  constructor() {
+    alertify.defaults.theme.ok = "btn btn-outline-primary";
+    alertify.defaults.theme.cancel = "btn btn-outline-danger";
+  }
   confirm(message: string, okCallBack: () => any) {
-    alertify.confirm(message, function(e) {
-      if (e) okCallBack();
-    });
+    alertify
+      .confirm(message, function(e) {
+        if (e) okCallBack();
+      })
+      .set({ title: "Dating App", transition: "zoom" });
   }
   success(message: string) {
     alertify.success(message);

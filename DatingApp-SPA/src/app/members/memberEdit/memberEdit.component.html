@@ -99,8 +99,9 @@
                 [(ngModel)]="user.city"
               />
             </div>
-
-            <tab heading="Photos"> </tab>
+          </tab>
+          <tab heading="Photos">
+            <app-photo-editor [photos]="user.photos"></app-photo-editor>
           </tab>
         </tabset>
       </div>

@@ -5,7 +5,7 @@ import { User } from "../../models/user";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: "members-list",
+  selector: "app-members-list",
   templateUrl: "./membersList.component.html",
   styleUrls: ["./membersList.component.css"]
 })

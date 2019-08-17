@@ -15,16 +15,22 @@ export class NavigationBarComponent implements OnInit {
     private authService: AuthService,
     private alertifyService: AlertifyService
   ) {}
+  /*the ngOnInit if statement is for the case of the user refreshing or closing the tab or browser and coming back*/
   userNameToDisplay: string;
+  photoUrl: string;
+
   ngOnInit() {
-    if (this.authService.loggedIn())
+    if (this.authService.loggedIn()) {
       this.userNameToDisplay = this.authService.decodedToken.unique_name;
+    }
+    this.authService.currentPhotoUrl.subscribe(url => (this.photoUrl = url));
   }
   login() {
     this.authService.login(this.model).subscribe(
       next => {
         this.alertifyService.success("Logged In Successfully");
         this.userNameToDisplay = this.authService.decodedToken.unique_name;
+        this.photoUrl = this.authService.currentUser.photoUrl;
       },
       error => this.alertifyService.error("Username or Password Is Incorrect"),
       () => {
@@ -37,6 +43,9 @@ export class NavigationBarComponent implements OnInit {
   }
   logOut() {
     localStorage.removeItem("token");
+    localStorage.removeItem("info");
+    this.authService.currentUser = null;
+    this.authService.decodedToken = null;
     this.alertifyService.message("Good Bye");
     this.router.navigate(["/home"]);
   }
