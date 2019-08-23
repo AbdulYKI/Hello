@@ -1,3 +1,5 @@
+import { environment } from "./../../../environments/environment";
+
 import { Component, OnInit, Input } from "@angular/core";
 import { User } from "src/app/models/user";
 
@@ -8,7 +10,7 @@ import { User } from "src/app/models/user";
 })
 export class MemberCardComponent implements OnInit {
   @Input() user: User;
-
+  defaultPhoto = environment.defaultPhoto;
   constructor() {}
 
   ngOnInit() {}

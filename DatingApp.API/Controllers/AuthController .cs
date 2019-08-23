@@ -37,17 +37,17 @@ namespace DatingApp.API.Controllers
         {
 
 
-            userForRegisterDTO.UserName = userForRegisterDTO.UserName.ToLower();
-            if (await _repo.UserExists(userForRegisterDTO.UserName))
+            userForRegisterDTO.Username = userForRegisterDTO.Username.ToLower();
+            if (await _repo.UserExists(userForRegisterDTO.Username))
                 return BadRequest();
 
-            var toBeCreatedUser = new User
-            {
-                Username = userForRegisterDTO.UserName
-            };
-            toBeCreatedUser = await _repo.Register(toBeCreatedUser, userForRegisterDTO.Password);
+            var userTobeCreated = _mapper.Map<User>(userForRegisterDTO);
 
-            return StatusCode(201);
+            var createdUser = await _repo.Register(userTobeCreated, userForRegisterDTO.Password);
+
+            var userToReturn = _mapper.Map<UserForDetailedDTO>(createdUser);
+
+            return CreatedAtRoute("GetUser", new { controller = "User", id = createdUser.Id }, userToReturn);
 
         }
         [HttpPost("login")]
@@ -55,7 +55,7 @@ namespace DatingApp.API.Controllers
         {
             try
             {
-                var user = await _repo.Login(userForLoginDTO.UserName.ToLower(), userForLoginDTO.Password);
+                var user = await _repo.Login(userForLoginDTO.Username.ToLower(), userForLoginDTO.Password);
 
                 if (user == null)
                     return Unauthorized();

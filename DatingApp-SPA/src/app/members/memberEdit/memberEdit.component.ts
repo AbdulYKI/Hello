@@ -1,3 +1,5 @@
+import { environment } from "./../../../environments/environment";
+
 import { AuthService } from "./../../services/Auth.service";
 import { ActivatedRoute } from "@angular/router";
 import { AlertifyService } from "./../../services/AlertifyService.service";
@@ -19,6 +21,7 @@ import { takeUntil } from "rxjs/operators";
   styleUrls: ["./memberEdit.component.css"]
 })
 export class MemberEditComponent implements OnInit, OnDestroy {
+  defaultPhoto = environment.defaultPhoto;
   user: User;
   destroy: Subject<boolean> = new Subject<boolean>();
   @ViewChild("editForm") editForm: NgForm;

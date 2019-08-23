@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { FileUploadModule } from "ng2-file-upload";
 import { MemberEditResolver } from "./../resolvers/memberEdit.resolver";
 import { JwtModule } from "@auth0/angular-jwt";
@@ -8,10 +10,11 @@ import { MyRoutes } from "./../routes.routing";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { NgxGalleryModule } from "ngx-gallery";
+import { TimeAgoPipe } from "time-ago-pipe";
 
 import { PhotoEditorComponent } from "./members/photoEditor/photoEditor.component";
 import { PreventUnsavedChangesGuard } from "./guards/prevent-unsaved-changes.guard";
@@ -47,12 +50,16 @@ export function tokenGetter() {
     ListsComponent,
     MemberEditComponent,
     PhotoEditorComponent,
-    TruncatePipe
+    TruncatePipe,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     MyRoutes,

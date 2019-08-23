@@ -15,10 +15,14 @@
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
     </ul>
-    <img *ngIf="loggedIn()" [src]="photoUrl" class="thumbnail mr-2" />
+    <img
+      *ngIf="loggedIn()"
+      [src]="photoUrl || defaultPhoto"
+      class="thumbnail mr-2"
+    />
     <div dropdown *ngIf="loggedIn()" class="dropdown">
       <a class="dropdown-toggle text-light" dropdownToggle (click)="(false)">
-        Welcome {{ userNameToDisplay | titlecase }}
+        Welcome {{ authService.decodedToken.unique_name | titlecase }}
       </a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
         <a class="dropdown-item" [routerLink]="['/member/edit']">

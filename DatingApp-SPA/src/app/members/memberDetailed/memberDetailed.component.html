@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-12 mt-4 ">
       <h1>
-        <strong>{{ user.knownAs }}'s Profile</strong>
+        <strong>{{ user.knownAs }}'s Profile </strong>
       </h1>
     </div>
   </div>
@@ -10,7 +10,7 @@
     <div class="col-sm-4 mt-3">
       <div class="card">
         <img
-          [src]="user.photoUrl"
+          [src]="user.photoUrl || defaultPhoto"
           class="card-img-top thumbnail-img"
           [alt]="user.knownAs"
         />
@@ -25,11 +25,11 @@
           </div>
           <div>
             <strong>Last Active</strong>
-            <div>{{ user.lastActive }}</div>
+            <div>{{ user.lastActive | timeAgo }}</div>
           </div>
           <div>
             <strong>Member Since</strong>
-            <div>{{ user.created }}</div>
+            <div>{{ user.created | date: "short" }}</div>
           </div>
           <div>
             <div class="card-footer">

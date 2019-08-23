@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AutoMapper;
 using DatingApp.API.DTOs;
@@ -19,7 +20,12 @@ namespace DatingApp.API.Helpers
              .ForMember(dest => dest.PhotoUrl,
              opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url))
              .ForMember(dest => dest.Age,
-            opt => opt.ResolveUsing(src => src.DateOfBirth.CalculateAge())); ;
+            opt => opt.ResolveUsing(src => src.DateOfBirth.CalculateAge())).
+            ForMember(dest => dest.Created,
+            opt => opt.ResolveUsing(src => src.Created.ToLocalTime())).
+             ForMember(dest => dest.LastActive,
+            opt => opt.ResolveUsing(src => src.LastActive.ToLocalTime()))
+            ;
 
             CreateMap<Photo, PhotoForDetailedDTO>();
 
@@ -32,6 +38,7 @@ namespace DatingApp.API.Helpers
              opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url))
             .ForMember(dest => dest.Age,
             opt => opt.ResolveUsing(src => src.DateOfBirth.CalculateAge()));
+            CreateMap<UserForRegisterDTO, User>();
         }
     }
 }

@@ -8,6 +8,7 @@ import {
   NgxGalleryOptions,
   NgxGalleryAnimation
 } from "ngx-gallery";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-member-detailed",
@@ -15,6 +16,7 @@ import {
   styleUrls: ["./memberDetailed.component.css"]
 })
 export class MemberDetailedComponent implements OnInit {
+  defaultPhoto = environment.defaultPhoto;
   user: User;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];

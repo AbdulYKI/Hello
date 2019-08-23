@@ -69,7 +69,14 @@ export class PhotoEditorComponent implements OnInit, OnDestroy {
           url: res.url
         };
         this.photos.push(photo);
-        console.log(this.uploader.queue);
+        if (photo.isMain) {
+          this.authService.changeMemeberPhotoUrl(photo.url);
+          this.authService.currentUser.photoUrl = photo.url;
+          localStorage.setItem(
+            "info",
+            JSON.stringify(this.authService.currentUser)
+          );
+        }
       }
     };
   }
@@ -102,7 +109,7 @@ export class PhotoEditorComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.unSubscribe))
           .subscribe(
             next => {
-              var photoIndexTodelete = this.photos.findIndex(
+              const photoIndexTodelete = this.photos.findIndex(
                 p => p.id === photoId
               );
               this.photos.splice(photoIndexTodelete, 1);
