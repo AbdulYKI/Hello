@@ -15,6 +15,8 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { NgxGalleryModule } from "ngx-gallery";
 import { TimeAgoPipe } from "time-ago-pipe";
+import { PaginationModule } from "ngx-bootstrap/pagination";
+import { ButtonsModule } from "ngx-bootstrap/buttons";
 
 import { PhotoEditorComponent } from "./members/photoEditor/photoEditor.component";
 import { PreventUnsavedChangesGuard } from "./guards/prevent-unsaved-changes.guard";
@@ -71,7 +73,9 @@ export function tokenGetter() {
       }
     }),
     FileUploadModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
     AuthService,

@@ -1,3 +1,4 @@
+import { UserParams } from "./../app/models/userParams";
 import { catchError } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 import { AlertifyService } from "../app/services/AlertifyService.service";
@@ -8,6 +9,10 @@ import { UserService } from "src/app/services/user.service";
 
 @Injectable()
 export class MembersListResolver implements Resolve<User> {
+  pageSize = 12;
+  pageNumber = 1;
+
+  user: User = JSON.parse(localStorage.getItem("info"));
   constructor(
     private alertifyService: AlertifyService,
     private router: Router,
@@ -15,7 +20,7 @@ export class MembersListResolver implements Resolve<User> {
   ) {}
 
   resolve(snapShot: ActivatedRouteSnapshot): Observable<User> {
-    return this.userService.getUsers().pipe(
+    return this.userService.getUsers(this.pageSize, this.pageNumber).pipe(
       catchError(error => {
         this.alertifyService.error("Problem in retreving data");
         this.router.navigate(["/home"]);
