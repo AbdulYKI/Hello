@@ -18,7 +18,7 @@ export class MembersListComponent implements OnInit {
     private alertifyService: AlertifyService,
     private route: ActivatedRoute
   ) {}
-  @ViewChild("buttonGroup") buttonGroup;
+
   userParams: UserParams = new UserParams();
   user: User = JSON.parse(localStorage.getItem("info"));
   pagination: Pagination;
@@ -32,7 +32,6 @@ export class MembersListComponent implements OnInit {
     this.userParams.maxAge = 99;
     this.userParams.minAge = 18;
     this.userParams.orderBy = OrderBy.CREATED;
-    console.log(this.buttonGroup);
   }
   resetFilter() {
     this.userParams.gender = this.user.gender === "female" ? "male" : "female";
