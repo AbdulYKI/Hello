@@ -12,8 +12,10 @@
           <i class="fa fa-user"></i>
         </button>
       </li>
-      <li class="list-inline-item">
-        <button class="btn btn-secondary"><i class="fa fa-heart"></i></button>
+      <li *ngIf="showLikeButton" class="list-inline-item">
+        <button class="btn btn-secondary" (click)="likeUser(user.id)">
+          <i class="fa fa-heart"></i>
+        </button>
       </li>
       <li class="list-inline-item">
         <button class="btn btn-secondary">

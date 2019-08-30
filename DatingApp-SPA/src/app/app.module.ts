@@ -1,3 +1,4 @@
+import { ListsResolver } from "./../resolvers/Lists.resolver";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 import { FileUploadModule } from "ng2-file-upload";
@@ -86,7 +87,8 @@ export function tokenGetter() {
     MemberDetailedResolver,
     MembersListResolver,
     MemberEditResolver,
-    PreventUnsavedChangesGuard
+    PreventUnsavedChangesGuard,
+    ListsResolver
   ],
   bootstrap: [AppComponent]
 })

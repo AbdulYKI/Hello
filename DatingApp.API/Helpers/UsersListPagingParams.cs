@@ -1,6 +1,7 @@
 namespace DatingApp.API.Helpers
 {
     public enum OrderBy { CREATED = 1, ACTIVE = 2 }
+    public enum Bring { LIKEES = 1, LIKERS = 2, BOTH = 3 }
     public class UsersListPagingParams
     {
 
@@ -18,5 +19,8 @@ namespace DatingApp.API.Helpers
         public int MaxAge { get; set; } = 99;
         public int MinAge { get; set; } = 18;
         public OrderBy OrderBy { get; set; } = OrderBy.CREATED;
+
+        public Bring Bring { get; set; } = Bring.BOTH;
+
     }
 }

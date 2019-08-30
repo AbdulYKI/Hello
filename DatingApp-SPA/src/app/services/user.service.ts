@@ -19,21 +19,34 @@ export class UserService {
     return this.http.get<User>(this.baseUrl + id);
   }
   getUsers(
-    pageSize?,
-    pageNumber?,
-    userParams?
+    pageSize?: number,
+    pageNumber?: number,
+    userParams?: UserParams
   ): Observable<PaginationResult<User[]>> {
     const paginationResult = new PaginationResult<User[]>();
     let params = new HttpParams();
     if (pageSize != null && pageNumber != null) {
-      params = params.append("pageSize", pageSize);
-      params = params.append("pageNumber", pageNumber);
+      params = params.append("pageSize", pageSize.toString());
+      params = params.append("pageNumber", pageNumber.toString());
     }
     if (userParams != null) {
-      params = params.append("maxAge", userParams.maxAge);
-      params = params.append("minAge", userParams.minAge);
-      params = params.append("gender", userParams.gender);
-      params = params.append("orderBy", userParams.orderBy);
+      if (userParams.maxAge != null) {
+        params = params.append("maxAge", userParams.maxAge.toString());
+      }
+      if (userParams.minAge != null) {
+        params = params.append("minAge", userParams.minAge.toString());
+      }
+      if (userParams.gender != null) {
+        params = params.append("gender", userParams.gender);
+      }
+
+      if (userParams.orderBy != null) {
+        params = params.append("orderBy", userParams.orderBy.toString());
+      }
+
+      if (userParams.bring != null) {
+        params = params.append("bring", userParams.bring.toString());
+      }
     }
 
     return this.http
@@ -61,5 +74,11 @@ export class UserService {
   }
   deletePhoto(userId: number, photoId: number): Observable<any> {
     return this.http.delete(this.baseUrl + userId + "/photo/" + photoId);
+  }
+  likeUser(userId: number, recipientId: number): Observable<any> {
+    return this.http.post(
+      this.baseUrl + userId + "/" + "likes" + "/" + recipientId,
+      {}
+    );
   }
 }
