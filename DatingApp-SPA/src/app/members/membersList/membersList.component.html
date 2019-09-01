@@ -57,13 +57,14 @@
     Reset Filter
   </button>
   <div class="btn-group  ml-3">
+    <!--I put the btnRadio as an input property because if I put it like btnRadio="1" it will accept it as a string-->
     <button
       type="button"
       name="orderBy"
       class="btn btn-outline-danger"
       [(ngModel)]="userParams.orderBy"
       (click)="loadUsers()"
-      btnRadio="1"
+      [btnRadio]="1"
     >
       Newest Members
     </button>
@@ -73,7 +74,7 @@
       class="btn btn-outline-warning "
       [(ngModel)]="userParams.orderBy"
       (click)="loadUsers()"
-      btnRadio="2"
+      [btnRadio]="2"
     >
       Last Active
     </button>

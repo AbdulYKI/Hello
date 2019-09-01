@@ -1,7 +1,7 @@
 <div class="text-center mt-3">
   <h2>
     {{
-      userParams.bring == 1 ? "Members who like me" : "Members whom I've Liked"
+      userParams.bring == 1 ? "Members whom I've Liked" : "Members who like me"
     }}
     : {{ pagination.totalItems }}
   </h2>
@@ -62,25 +62,28 @@
     Reset Filter
   </button>
   <div class="btn-group  ml-3">
+    <!--I put the btnRadio as an input property because if I put it like btnRadio="1" it will accept it as a string-->
     <button
       type="button"
       name="orderBy"
       class="btn btn-outline-danger"
+      tabindex="0"
       [(ngModel)]="userParams.bring"
       (click)="loadUsers()"
-      btnRadio="1"
+      [btnRadio]="1"
     >
-      Members who like me
+      Memebers whom I like
     </button>
     <button
       type="button"
       name="orderBy"
       class="btn btn-outline-warning "
       [(ngModel)]="userParams.bring"
+      tabindex="0"
       (click)="loadUsers()"
-      btnRadio="2"
+      [btnRadio]="2"
     >
-      Memebers whom I like
+      Members who like me
     </button>
   </div>
 </form>
