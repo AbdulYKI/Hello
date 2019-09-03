@@ -39,5 +39,17 @@ namespace DatingApp.API.Data
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+        public void SeedCountries()
+        {
+
+            var countriesData = System.IO.File.ReadAllText("Models/Countries.json");
+            List<Country> countries = JsonConvert.DeserializeObject<List<Country>>(countriesData);
+
+            foreach (var country in countries)
+                _context.Countries.Add(country);
+
+
+            _context.SaveChanges();
+        }
     }
 }

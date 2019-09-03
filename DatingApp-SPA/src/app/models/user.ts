@@ -9,10 +9,10 @@ export interface User {
   created: Date;
   lastActive: Date;
   photoUrl: string;
-  city: string;
-  country: string;
+  alpha2Code: string;
   interests?: string;
   introduction?: string;
   lookingFor?: string;
   photos?: Photo[];
+  country: string;
 }

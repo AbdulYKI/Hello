@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +70,11 @@ namespace DatingApp.API.Data
             return false;
 
 
+        }
+
+        public async Task<List<Country>> GetCountries()
+        {
+            return await _context.Countries.ToListAsync();
         }
     }
 }

@@ -16,6 +16,20 @@ namespace DatingApp.API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
 
+            modelBuilder.Entity("DatingApp.API.Models.Country", b =>
+                {
+                    b.Property<int>("NumericCode")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Alpha2Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("NumericCode");
+
+                    b.ToTable("Countries");
+                });
+
             modelBuilder.Entity("DatingApp.API.Models.Like", b =>
                 {
                     b.Property<int>("LikerId");
@@ -50,7 +64,7 @@ namespace DatingApp.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.User", b =>
@@ -58,9 +72,7 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
+                    b.Property<int>("CountryNumericCode");
 
                     b.Property<DateTime>("Created");
 
@@ -85,6 +97,8 @@ namespace DatingApp.API.Migrations
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CountryNumericCode");
 
                     b.ToTable("Users");
                 });
@@ -120,6 +134,14 @@ namespace DatingApp.API.Migrations
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.User", b =>
+                {
+                    b.HasOne("DatingApp.API.Models.Country", "Country")
+                        .WithMany("Users")
+                        .HasForeignKey("CountryNumericCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

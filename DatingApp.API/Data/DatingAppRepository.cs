@@ -32,13 +32,14 @@ namespace DatingApp.API.Data
             .Users
             .Include(p => p.Photos)
             .Include(l => l.Likees)
+            .Include(c => c.Country)
             .FirstOrDefaultAsync(U => U.Id == id);
             return user;
         }
 
         public async Task<Photo> GetPhoto(int id)
         {
-            var photo = await _context.Photo.FirstOrDefaultAsync(p => p.Id == id);
+            var photo = await _context.Photos.FirstOrDefaultAsync(p => p.Id == id);
             return photo;
         }
         public async Task<PagedList<User>> GetUsers(UsersListPagingParams usersListPagingParams)
@@ -46,10 +47,12 @@ namespace DatingApp.API.Data
             var minDoB = System.DateTime.Today.AddYears(-usersListPagingParams.MaxAge);
             var maxDob = System.DateTime.Today.AddYears(-usersListPagingParams.MinAge);
 
-            var users = _context.Users.Include(p => p.Photos).Where((u) => u.Id != usersListPagingParams.UserId &&
-                                                                     u.Gender == usersListPagingParams.Gender &&
-                                                                     u.DateOfBirth >= minDoB &&
-                                                                     u.DateOfBirth <= maxDob);
+            var users = _context.Users
+            .Include(p => p.Photos)
+            .Where((u) => u.Id != usersListPagingParams.UserId &&
+                                 u.Gender == usersListPagingParams.Gender &&
+                                 u.DateOfBirth >= minDoB &&
+                                 u.DateOfBirth <= maxDob);
 
 
             if (usersListPagingParams.Bring == Bring.LIKERS)

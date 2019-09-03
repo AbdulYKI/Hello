@@ -22,8 +22,13 @@
         />
         <div class="card-body">
           <div>
-            <strong>Location:</strong>
-            <div>{{ user.country }},{{ user.city }}</div>
+            <strong>Country:</strong>
+            <div>
+              <span
+                class="flag flag-{{ user.alpha2Code.toLowerCase() }}"
+              ></span>
+              {{ user.country }}
+            </div>
           </div>
           <div>
             <strong>Age</strong>
@@ -83,22 +88,6 @@
                 [(ngModel)]="user.interests"
               ></textarea>
             </form>
-            <div class="form-inline mt-2">
-              <label>Country:</label>
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="user.country"
-                name="country"
-              />
-              <label>City:</label>
-              <input
-                type="text"
-                class="form-control"
-                name="city"
-                [(ngModel)]="user.city"
-              />
-            </div>
           </tab>
           <tab heading="Photos">
             <app-photo-editor [photos]="user.photos"></app-photo-editor>

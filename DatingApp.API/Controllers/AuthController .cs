@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -95,6 +96,13 @@ namespace DatingApp.API.Controllers
 
 
 
+        }
+        [HttpGet("Countries")]
+        public async Task<IActionResult> GetCountries()
+        {
+            var countries = await _repo.GetCountries();
+            var countriesDTO = _mapper.Map<List<CountryDTO>>(countries);
+            return Ok(countriesDTO);
         }
     }
 }

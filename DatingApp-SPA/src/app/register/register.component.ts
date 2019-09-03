@@ -6,7 +6,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { validateConfig } from "@angular/router/src/config";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker";
 import { User } from "../models/user";
-
+import { Country } from "../models/Country";
+import { AbstractControl } from "@angular/forms";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
@@ -23,9 +24,18 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
   registerForm: FormGroup;
-
+  countries: Country[];
   ngOnInit() {
+    this.getCountries();
     this.buildRegistrationForm();
+  }
+  getCountries() {
+    this.authService.getCountries().subscribe(
+      (res: Country[]) => (this.countries = res),
+      error => {
+        this.alertifyService.error(error);
+      }
+    );
   }
   buildRegistrationForm() {
     this.registerForm = this.formBuilder.group(
@@ -38,12 +48,18 @@ export class RegisterComponent implements OnInit {
             Validators.required
           ]
         ],
-        username: ["", [Validators.required]],
+        username: [
+          "",
+          [
+            Validators.minLength(5),
+            Validators.maxLength(10),
+            Validators.required
+          ]
+        ],
         confirmPassword: [""],
         gender: ["male"],
-        city: ["", [Validators.required]],
-        country: ["", [Validators.required]],
-        dateOfBirth: ["", [Validators.required]],
+        countryNumericCode: ["", [Validators.required]],
+        dateOfBirth: ["", [Validators.required, this.validateAge]],
         knownAs: ["", [Validators.required]]
       },
       { validator: this.validateConfirmPassowrd }
@@ -54,9 +70,15 @@ export class RegisterComponent implements OnInit {
       ? null
       : { mismatch: true };
   }
+  validateAge(control: AbstractControl) {
+    const today = new Date();
+    const birthDate = new Date(control.value);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    return age >= 18 ? null : { underAge: true };
+  }
   register() {
     if (this.registerForm.valid) {
-      var user: User = Object.assign({}, this.registerForm.value);
+      const user: User = Object.assign({}, this.registerForm.value);
       this.authService.register(user).subscribe(
         () => {
           this.alertifyService.success("Registered Successfully");

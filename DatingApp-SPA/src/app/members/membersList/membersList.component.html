@@ -11,10 +11,13 @@
   <div class="form-group">
     <label for="minAge">Age From</label>
     <input
+      min="18"
+      max="99"
       type="number"
       class="form-control ml-1"
       style="width: 70px"
       id="minAge"
+      (change)="onAgeChanged($event)"
       name="minAge"
       [(ngModel)]="userParams.minAge"
     />
@@ -23,11 +26,14 @@
   <div class="form-group px-2">
     <label for="maxAge">Age To</label>
     <input
+      min="18"
+      max="99"
       type="number"
       class="form-control ml-1"
       style="width: 70px"
       id="maxAge"
       name="maxAge"
+      (change)="onAgeChanged($event)"
       [(ngModel)]="userParams.maxAge"
     />
   </div>

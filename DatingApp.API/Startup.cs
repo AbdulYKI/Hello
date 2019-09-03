@@ -36,6 +36,8 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {   //Connecting to the database
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //adds cors specified in Configure(IApplicationBuilder app,IHostingEnvironment env)
+            services.AddCors();
             //adding mvc and setting comp version
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             .AddJsonOptions(opt =>
@@ -44,8 +46,7 @@ namespace DatingApp.API
             });
             //adds Cloudinaryy Strongly Typed Configuration
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
-            //adds cors specified in Configure(IApplicationBuilder app,IHostingEnvironment env)
-            services.AddCors();
+
             //adds the authentication service
             services.AddScoped<IAuthRepository, AuthRepository>();
             //adds the DatingAppRepository service
@@ -94,9 +95,10 @@ namespace DatingApp.API
              });
             }
 
-            //  app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             //specifies what cors to use
             // seeder.SeedUsers();
+            // seeder.SeedCountries();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseAuthentication();
             app.UseMvc();

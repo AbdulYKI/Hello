@@ -10,3 +10,7 @@
   background-color: #fff;
   border-top: none;
 }
+
+.italic {
+  font-style: italic;
+}

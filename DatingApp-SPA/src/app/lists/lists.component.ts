@@ -56,4 +56,18 @@ export class ListsComponent implements OnInit {
     this.pagination.currentPage = event.page;
     this.loadUsers();
   }
+  onAgeChanged(event: any): void {
+    if (event.target.value < 18 && event.target.name === "maxAge") {
+      this.userParams.maxAge = 18;
+    }
+    if (event.target.value < 18 && event.target.name === "minAge") {
+      this.userParams.minAge = 18;
+    }
+    if (event.target.value > 99 && event.target.name === "maxAge") {
+      this.userParams.maxAge = 99;
+    }
+    if (event.target.value > 99 && event.target.name === "minAge") {
+      this.userParams.minAge = 99;
+    }
+  }
 }

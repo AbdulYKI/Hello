@@ -39,4 +39,7 @@ export class AuthService {
     const token = localStorage.getItem("token");
     return !this.jwtHelper.isTokenExpired(token);
   }
+  getCountries() {
+    return this.http.get(this.baseUrl + "Countries");
+  }
 }

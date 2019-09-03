@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using DatingApp.API.Helpers;
 
 namespace DatingApp.API.DTOs
 {
@@ -13,16 +14,23 @@ namespace DatingApp.API.DTOs
 
         public string Password { get; set; }
         [Required]
-        public string Country { get; set; }
-        [Required]
-        public string City { get; set; }
+        public int CountryNumericCode { get; set; }
+
         [Required]
         public string KnownAs { get; set; }
         [Required]
         public string Gender { get; set; }
         [Required]
+        [CustomValidation(typeof(UserForRegisterDTO), "ValidateAge")]
         public DateTime DateOfBirth { get; set; }
+        public static ValidationResult ValidateAge(DateTime dateOfBirth, ValidationContext context)
+        {
+            var age = dateOfBirth.CalculateAge();
 
+            return (age < 18)
+                ? new ValidationResult(null)
+                : ValidationResult.Success;
+        }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         public UserForRegisterDTO()

@@ -15,9 +15,10 @@
           [alt]="user.knownAs"
         />
         <div class="card-body">
+          <strong>Country:</strong>
           <div>
-            <strong>Location:</strong>
-            <div>{{ user.country }},{{ user.city }}</div>
+            <span class="flag flag-{{ user.alpha2Code.toLowerCase() }}"></span>
+            {{ user.country }}
           </div>
           <div>
             <strong>Age</strong>
@@ -49,13 +50,21 @@
           <tab [heading]="tabHeader">
             <h4>Introduction:</h4>
             <p>{{ user.introduction }}</p>
-
+            <h6 *ngIf="!user.introduction" class="italic">
+              User has not set their introduction yet.
+            </h6>
             <h4>Lookin For:</h4>
             <p>{{ user.lookingFor }}</p>
+            <h6 *ngIf="!user.lookingFor" class="italic">
+              User has not set what they are looking for yet.
+            </h6>
           </tab>
           <tab heading="Interests">
             <h4>Interests:</h4>
             <p>{{ user.interests }}</p>
+            <h6 *ngIf="!user.interests" class="italic">
+              User has not set their interests yet.
+            </h6>
           </tab>
           <tab heading="Photos">
             <h4>Photos:</h4>

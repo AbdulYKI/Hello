@@ -9,14 +9,41 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190812101629_photoEntityAdded")]
-    partial class photoEntityAdded
+    [Migration("20190901123941_NewStart")]
+    partial class NewStart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+
+            modelBuilder.Entity("DatingApp.API.Models.Country", b =>
+                {
+                    b.Property<int>("NumericCode")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Alpha2Code");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("NumericCode");
+
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.Like", b =>
+                {
+                    b.Property<int>("LikerId");
+
+                    b.Property<int>("LikeeId");
+
+                    b.HasKey("LikerId", "LikeeId");
+
+                    b.HasIndex("LikeeId");
+
+                    b.ToTable("Likes");
+                });
 
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
@@ -29,6 +56,8 @@ namespace DatingApp.API.Migrations
 
                     b.Property<bool>("IsMain");
 
+                    b.Property<string>("PublicId");
+
                     b.Property<string>("Url");
 
                     b.Property<int>("UserId");
@@ -37,7 +66,7 @@ namespace DatingApp.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.User", b =>
@@ -45,9 +74,7 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
+                    b.Property<int>("CountryNumericCode");
 
                     b.Property<DateTime>("Created");
 
@@ -73,6 +100,8 @@ namespace DatingApp.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryNumericCode");
+
                     b.ToTable("Users");
                 });
 
@@ -88,12 +117,33 @@ namespace DatingApp.API.Migrations
                     b.ToTable("Values");
                 });
 
+            modelBuilder.Entity("DatingApp.API.Models.Like", b =>
+                {
+                    b.HasOne("DatingApp.API.Models.User", "Likee")
+                        .WithMany("Likers")
+                        .HasForeignKey("LikeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("DatingApp.API.Models.User", "Liker")
+                        .WithMany("Likees")
+                        .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
                     b.HasOne("DatingApp.API.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.User", b =>
+                {
+                    b.HasOne("DatingApp.API.Models.Country", "Country")
+                        .WithMany("Users")
+                        .HasForeignKey("CountryNumericCode")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

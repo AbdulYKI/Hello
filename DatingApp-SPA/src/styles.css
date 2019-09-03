@@ -5,4 +5,5 @@
 @import "../node_modules/alertifyjs/build/css/alertify.min.css";
 @import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css";
 @import "../src/assets/tabs.css";
+@import "../src/assets/flags.css";
 @import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";

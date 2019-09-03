@@ -11,8 +11,9 @@ namespace DatingApp.API.Data
         }
         public DbSet<Value> Values { get; set; }
         public DbSet<User> Users { get; set; }
-        //should be photos but SQLITE is a pain in the neck to deal with
-        public DbSet<Photo> Photo { get; set; }
+
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Country> Countries { get; set; }
         public DbSet<Like> Likes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,13 +21,19 @@ namespace DatingApp.API.Data
             modelBuilder.Entity<Like>()
             .HasKey(k => new { k.LikerId, k.LikeeId });
 
-
+            modelBuilder.Entity<Country>()
+             .HasKey(k => new { k.NumericCode });
             //explains the relationship between the likee in the likes table and the likers in the user table
             modelBuilder.Entity<Like>()
             .HasOne(k => k.Likee)
             .WithMany(u => u.Likers)
             .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.Country)
+            .WithMany(C => C.Users)
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasForeignKey(u => u.CountryNumericCode);
             //explains the relationship between the liker in the likes table and the likees in the user table
             modelBuilder.Entity<Like>()
             .HasOne(k => k.Liker)
