@@ -70,4 +70,7 @@ export class ListsComponent implements OnInit {
       this.userParams.minAge = 99;
     }
   }
+  get Bring() {
+    return Bring;
+  }
 }

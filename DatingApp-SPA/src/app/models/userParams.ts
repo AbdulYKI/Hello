@@ -13,3 +13,8 @@ export enum Bring {
   LIKEES = 1,
   LIKERS = 2
 }
+export enum MessageContainer {
+  INBOX = 1,
+  OUTBOX = 2,
+  UNREAD = 3
+}

@@ -11,7 +11,7 @@
       <div class="card">
         <img
           [src]="user.photoUrl || defaultPhoto"
-          class="card-img-top thumbnail-img"
+          class="card-img thumbnail-img"
           [alt]="user.knownAs"
         />
         <div class="card-body">
@@ -21,22 +21,26 @@
             {{ user.country }}
           </div>
           <div>
-            <strong>Age</strong>
+            <strong>Age:</strong>
             <div>{{ user.age }}</div>
           </div>
           <div>
-            <strong>Last Active</strong>
-            <div>{{ user.lastActive | timeAgo }}</div>
+            <strong>Last Active:</strong>
+            <div>{{ user.lastActive | date: "short" | timeAgo }}</div>
           </div>
           <div>
-            <strong>Member Since</strong>
+            <strong>Member Since:</strong>
             <div>{{ user.created | date: "short" }}</div>
           </div>
           <div>
             <div class="card-footer">
               <div class="btn-group d-flex ">
-                <button class="btn btn-success w-100">Like</button>
-                <button class="btn btn-secondary w-100">Message</button>
+                <button class="btn btn-success w-100" (click)="likeUser()">
+                  Like
+                </button>
+                <button class="btn btn-secondary w-100" (click)="selectTab(3)">
+                  Message
+                </button>
               </div>
             </div>
           </div>
@@ -46,7 +50,7 @@
 
     <div class="col-sm-8 mt-3">
       <div class="tab-panel">
-        <tabset class="member-tabset">
+        <tabset class="member-tabset" #staticTabs>
           <tab [heading]="tabHeader">
             <h4>Introduction:</h4>
             <p>{{ user.introduction }}</p>
@@ -68,14 +72,18 @@
           </tab>
           <tab heading="Photos">
             <h4>Photos:</h4>
+            <h6 *ngIf="galleryImages.length === 0" class="italic">
+              User has not uploaded any pictures yet.
+            </h6>
             <ngx-gallery
+              *ngIf="galleryImages.length !== 0"
               [options]="galleryOptions"
               [images]="galleryImages"
             ></ngx-gallery>
           </tab>
           <tab heading="Messages">
             <h4>Messages:</h4>
-            <p>To Be Added</p>
+            <app-message-thread [recipientId]="user.id"></app-message-thread>
           </tab>
         </tabset>
       </div>

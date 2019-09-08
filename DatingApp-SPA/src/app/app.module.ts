@@ -1,3 +1,4 @@
+import { MessagesResovler } from "./../resolvers/messages.resolver";
 import { ListsResolver } from "./../resolvers/Lists.resolver";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
@@ -36,6 +37,7 @@ import { ListsComponent } from "./lists/lists.component";
 import { ErrorInterceptorProvider } from "./services/Interceptor.service";
 import { NavigationBarComponent } from "./navigationBar/navigationBar.component";
 import { TruncatePipe } from "./pipes/truncate.pipe";
+import { MessageThreadComponent } from "./members/messageThread/messageThread.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -54,7 +56,8 @@ export function tokenGetter() {
     MemberEditComponent,
     PhotoEditorComponent,
     TruncatePipe,
-    TimeAgoPipe
+    TimeAgoPipe,
+    MessageThreadComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,8 @@ export function tokenGetter() {
     MembersListResolver,
     MemberEditResolver,
     PreventUnsavedChangesGuard,
-    ListsResolver
+    ListsResolver,
+    MessagesResovler
   ],
   bootstrap: [AppComponent]
 })

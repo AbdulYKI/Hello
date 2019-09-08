@@ -1,0 +1,53 @@
+.chat-box {
+  width: 600px;
+  margin: auto;
+  border-radius: 15px;
+  background: #f1f0cf;
+  color: #ff8a5c;
+  padding: 20px;
+  font-family: arial;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.triangle-right:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 15px solid #f1f0cf;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #f1f0cf;
+  border-bottom: 15px solid transparent;
+  right: -16px;
+  top: 20px;
+}
+
+.triangle-left:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 15px solid transparent;
+  border-right: 15px solid #f1f0cf;
+  border-top: 15px solid #f1f0cf;
+  border-bottom: 15px solid transparent;
+  left: -16px;
+  top: 20px;
+}
+
+.img-circle {
+  height: 50px;
+  width: 50px;
+}
+.card-body {
+  overflow-y: scroll;
+  height: 400px;
+}
+.box-margin-left {
+  margin-left: -0.75rem !important;
+}
+.box-margin-right {
+  margin-right: -0.75rem !important;
+}

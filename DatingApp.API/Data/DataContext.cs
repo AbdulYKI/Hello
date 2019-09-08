@@ -15,6 +15,7 @@ namespace DatingApp.API.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Message> Meessages { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //tell EF what is the primary key
@@ -23,12 +24,22 @@ namespace DatingApp.API.Data
 
             modelBuilder.Entity<Country>()
              .HasKey(k => new { k.NumericCode });
+
             //explains the relationship between the likee in the likes table and the likers in the user table
             modelBuilder.Entity<Like>()
             .HasOne(k => k.Likee)
             .WithMany(u => u.Likers)
             .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Message>()
+            .HasOne(m => m.Sender)
+            .WithMany(u => u.MessagesSent)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                        .HasOne(m => m.Recipient)
+                        .WithMany(u => u.MessagesReceived)
+                        .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<User>()
             .HasOne(u => u.Country)
             .WithMany(C => C.Users)

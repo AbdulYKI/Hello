@@ -70,7 +70,7 @@
       class="btn btn-outline-danger"
       [(ngModel)]="userParams.orderBy"
       (click)="loadUsers()"
-      [btnRadio]="1"
+      [btnRadio]="OrderBy.CREATED"
     >
       Newest Members
     </button>
@@ -80,7 +80,7 @@
       class="btn btn-outline-warning "
       [(ngModel)]="userParams.orderBy"
       (click)="loadUsers()"
-      [btnRadio]="2"
+      [btnRadio]="OrderBy.LAST_ACTIVE"
     >
       Last Active
     </button>

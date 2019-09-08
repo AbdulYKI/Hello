@@ -1,5 +1,6 @@
+import { AuthService } from "./../../services/Auth.service";
 import { AlertifyService } from "./../../services/AlertifyService.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { ActivatedRoute } from "@angular/router";
 import { User } from "src/app/models/user";
@@ -9,6 +10,7 @@ import {
   NgxGalleryAnimation
 } from "ngx-gallery";
 import { environment } from "src/environments/environment";
+import { TabsetComponent } from "ngx-bootstrap/tabs";
 
 @Component({
   selector: "app-member-detailed",
@@ -16,14 +18,26 @@ import { environment } from "src/environments/environment";
   styleUrls: ["./memberDetailed.component.css"]
 })
 export class MemberDetailedComponent implements OnInit {
+  @ViewChild("staticTabs") staticTabs: TabsetComponent;
   defaultPhoto = environment.defaultPhoto;
   user: User;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
-  constructor(private route: ActivatedRoute) {}
   tabHeader: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private userService: UserService,
+    private alertifyService: AlertifyService
+  ) {}
+
   ngOnInit() {
     this.route.data.subscribe(userData => (this.user = userData["user"]));
+    this.route.queryParams.subscribe(params => {
+      const selectedTab = params["tabId"];
+      this.staticTabs.tabs[selectedTab > 0 ? selectedTab : 0].active = true;
+    });
     this.getPhotos();
     this.galleryOptions = [
       {
@@ -36,8 +50,6 @@ export class MemberDetailedComponent implements OnInit {
       }
     ];
     this.tabHeader = "About" + " " + this.user.knownAs;
-    console.log(this.galleryImages);
-    console.log(this.galleryOptions);
   }
 
   getPhotos(): void {
@@ -50,5 +62,16 @@ export class MemberDetailedComponent implements OnInit {
         description: photo.descritpion
       });
     }
+  }
+  selectTab(tabId: number): void {
+    this.staticTabs.tabs[tabId].active = true;
+  }
+  likeUser(): void {
+    this.userService
+      .likeUser(this.authService.decodedToken.nameid, this.user.id)
+      .subscribe(
+        () => this.alertifyService.success("User Liked Successfully"),
+        error => this.alertifyService.error(error)
+      );
   }
 }

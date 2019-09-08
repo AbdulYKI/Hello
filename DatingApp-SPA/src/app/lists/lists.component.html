@@ -1,7 +1,9 @@
 <div class="text-center mt-3">
   <h2>
     {{
-      userParams.bring == 1 ? "Members whom I've Liked" : "Members who like me"
+      userParams.bring === Bring.LIKEES
+        ? "Members whom I've Liked"
+        : "Members who like me"
     }}
     : {{ pagination.totalItems }}
   </h2>
@@ -72,9 +74,9 @@
       tabindex="0"
       [(ngModel)]="userParams.bring"
       (click)="loadUsers()"
-      [btnRadio]="1"
+      [btnRadio]="Bring.LIKERS"
     >
-      Memebers whom I like
+      Members who like me
     </button>
     <button
       type="button"
@@ -83,9 +85,9 @@
       [(ngModel)]="userParams.bring"
       tabindex="0"
       (click)="loadUsers()"
-      [btnRadio]="2"
+      [btnRadio]="Bring.LIKEES"
     >
-      Members who like me
+      Memebers whom I've like
     </button>
   </div>
 </form>

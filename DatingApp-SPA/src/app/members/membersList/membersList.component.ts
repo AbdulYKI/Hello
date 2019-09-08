@@ -33,14 +33,14 @@ export class MembersListComponent implements OnInit {
     this.userParams.minAge = 18;
     this.userParams.orderBy = OrderBy.CREATED;
   }
-  resetFilter() {
+  resetFilter(): void {
     this.userParams.gender = this.user.gender === "female" ? "male" : "female";
     this.userParams.maxAge = 99;
     this.userParams.minAge = 18;
     this.userParams.orderBy = OrderBy.CREATED;
     this.loadUsers();
   }
-  loadUsers() {
+  loadUsers(): void {
     this.userService
       .getUsers(
         this.pagination.pageSize,
@@ -69,5 +69,8 @@ export class MembersListComponent implements OnInit {
     if (event.target.value > 99 && event.target.name === "minAge") {
       this.userParams.minAge = 99;
     }
+  }
+  get OrderBy() {
+    return OrderBy;
   }
 }

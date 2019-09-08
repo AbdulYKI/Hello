@@ -1,24 +1,18 @@
 using System;
 
-
-
-namespace DatingApp.API.Models
-
+namespace DatingApp.API.DTOs
 {
-
-    public class Message
-
+    public class MessageToReturnDTO
     {
-
         public int Id { get; set; }
 
         public int SenderId { get; set; }
 
-        public User Sender { get; set; }
-
+        public string SenderKnownAs { get; set; }
+        public string SenderPhotoUrl { get; set; }
+        public string RecipientKnownAs { get; set; }
+        public string RecipientPhotoUrl { get; set; }
         public int RecipientId { get; set; }
-
-        public User Recipient { get; set; }
 
         public string Content { get; set; }
 
@@ -28,10 +22,5 @@ namespace DatingApp.API.Models
 
         public DateTime MessageSent { get; set; }
 
-        public bool SenderDeleted { get; set; }
-
-        public bool RecipientDeleted { get; set; }
-
     }
-
 }

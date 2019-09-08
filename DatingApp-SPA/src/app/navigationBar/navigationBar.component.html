@@ -21,10 +21,10 @@
       class="thumbnail mr-2"
     />
     <div dropdown *ngIf="loggedIn()" class="dropdown">
-      <a class="dropdown-toggle text-light" dropdownToggle (click)="(false)">
+      <a class="dropdown-toggle text-light" dropdownToggle>
         Welcome {{ authService.decodedToken.unique_name | titlecase }}
       </a>
-      <div class="dropdown-menu mt-3" *dropdownMenu>
+      <div class="dropdown-menu mt-2" *dropdownMenu>
         <a class="dropdown-item" [routerLink]="['/member/edit']">
           <i class="fa fa-user"></i> Edit Profile</a
         >

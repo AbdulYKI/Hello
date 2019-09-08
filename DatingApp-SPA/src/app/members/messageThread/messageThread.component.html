@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="card-body" #cardBody [scrollTop]="cardBody.scrollHeight">
+    <div *ngFor="let message of messages; let indx = index">
+      <div *ngIf="message.recipientId !== recipientId" [class.mt-3]="indx != 0">
+        <img
+          [src]="message.senderPhotoUrl || defaultPhoto"
+          class="img-circle rounded-circle float-left"
+          [title]="message.senderKnownAs"
+        />
+        <div class="chat-box triangle-left box-margin-right">
+          {{ message.content }}
+        </div>
+        <div class="text-muted text-right">
+          <span class="fa fa-clock-o">{{ message.messageSent | timeAgo }}</span>
+        </div>
+      </div>
+      <div *ngIf="message.recipientId === recipientId" [class.mt-3]="indx != 0">
+        <img
+          [src]="message.senderPhotoUrl || defaultPhoto"
+          class="img-circle rounded-circle float-right"
+          [title]="message.senderKnownAs"
+        />
+        <div class="chat-box triangle-right box-margin-left">
+          {{ message.content }}
+        </div>
+        <div class="text-muted text-left">
+          <span class="fa fa-clock-o">{{ message.messageSent | timeAgo }}</span>
+          <span *ngIf="!message.isRead" class="text-danger">(Unread)</span>
+          <span *ngIf="message.isRead" class="text-success"
+            >(read {{ message.dateRead | timeAgo }})</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && onSubmit()">
+      <div class="input-group">
+        <input
+          type="text"
+          required
+          placeholder="Send a message..."
+          name="content"
+          (click)="scrollToBottom()"
+          class="form-control input-sm"
+          [(ngModel)]="newMessageContent"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-warning" [disabled]="!messageForm.valid">
+            <i class="fa fa-paper-plane"></i>Send
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -18,7 +18,11 @@
         </button>
       </li>
       <li class="list-inline-item">
-        <button class="btn btn-secondary">
+        <button
+          class="btn btn-secondary"
+          [routerLink]="['/members/', user.id]"
+          [queryParams]="{ tabId: 3 }"
+        >
           <i class="fa fa-envelope"></i>
         </button>
       </li>
@@ -29,7 +33,7 @@
       <i class="fa fa-user">{{ user.knownAs }},{{ user.age }} </i>
     </h6>
     <p class="card-text text-center text-muted">
-      {{ user.city }}
+      {{ user.country }}
     </p>
   </div>
 </div>
