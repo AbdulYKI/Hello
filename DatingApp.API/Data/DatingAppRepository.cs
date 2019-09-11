@@ -31,7 +31,7 @@ namespace DatingApp.API.Data
             var user = await _context
             .Users
             .Include(p => p.Photos)
-            .Include(l => l.Likees)
+             .Include(l => l.Likees)
             .Include(c => c.Country)
             .FirstOrDefaultAsync(U => U.Id == id);
             return user;

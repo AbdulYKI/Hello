@@ -14,7 +14,7 @@ import { AuthService } from "src/app/services/Auth.service";
 export class MemberCardComponent implements OnInit {
   @Input() user: User;
   defaultPhoto = environment.defaultPhoto;
-  @Input() showLikeButton = true;
+
   constructor(
     private userService: UserService,
     private alertifyService: AlertifyService,

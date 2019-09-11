@@ -35,15 +35,18 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {   //Connecting to the database
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddEntityFrameworkSqlite()
+            .AddDbContext<DataContext>(db => db.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             //adds cors specified in Configure(IApplicationBuilder app,IHostingEnvironment env)
             services.AddCors();
             //adding mvc and setting comp version
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            //adds signalr
+            services.AddSignalR();
             //adds Cloudinaryy Strongly Typed Configuration
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
@@ -55,15 +58,29 @@ namespace DatingApp.API
             services.AddAutoMapper();
             //adds token authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(Options =>
+            .AddJwtBearer(options =>
             {
-                Options.TokenValidationParameters = new TokenValidationParameters
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
 
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("Appsettings:Token").Value)),
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = false,
                     ValidateAudience = false
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var path = context.HttpContext.Request.Path;
+                        var accessToken = context.Request.Query["access_token"];
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                       (path.StartsWithSegments("/api/chat")))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
             });
             //adds Seed so I can use it in seed
@@ -99,8 +116,12 @@ namespace DatingApp.API
             //specifies what cors to use
             // seeder.SeedUsers();
             // seeder.SeedCountries();
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200").AllowCredentials());
             app.UseAuthentication();
+            app.UseSignalR(routes =>
+           {
+               routes.MapHub<ChatHub>("/api/chat");
+           });
             app.UseMvc();
 
         }

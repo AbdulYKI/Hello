@@ -67,9 +67,11 @@ namespace DatingApp.API.Controllers
             var message = _mapper.Map<Message>(messageDTO);
             _repo.Add(message);
 
-            var messageToReturn = _mapper.Map<MessageToReturnDTO>(message);
             if (await _repo.SaveAll())
-                return CreatedAtRoute("GetMessage", new { id = message.Id }, messageToReturn);
+            {
+                var messageToReturn = _mapper.Map<MessageToReturnDTO>(message);
+                return CreatedAtRoute("GetMessage", new { id = message.Id }, messageToReturn); ;
+            }
 
             throw new Exception("Failed to send message");
         }

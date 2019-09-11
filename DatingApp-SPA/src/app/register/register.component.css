@@ -1,0 +1,7 @@
+.default-flag {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 11px;
+  background-color: #56cc9d;
+}

@@ -12,7 +12,7 @@
           <i class="fa fa-user"></i>
         </button>
       </li>
-      <li *ngIf="showLikeButton" class="list-inline-item">
+      <li class="list-inline-item">
         <button class="btn btn-secondary" (click)="likeUser(user.id)">
           <i class="fa fa-heart"></i>
         </button>
@@ -30,7 +30,7 @@
   </div>
   <div class="card-body p-1">
     <h6 class="card-title text-center mb-1">
-      <i class="fa fa-user">{{ user.knownAs }},{{ user.age }} </i>
+      <i class="fa fa-user">&nbsp;&nbsp;{{ user.knownAs }},{{ user.age }} </i>
     </h6>
     <p class="card-text text-center text-muted">
       {{ user.country }}

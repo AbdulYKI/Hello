@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   @Output() cancelEvent: EventEmitter<any> = new EventEmitter();
   model: any = {};
 
+  flagClass = "default-flag";
   constructor(
     private authService: AuthService,
     private alertifyService: AlertifyService,
@@ -31,7 +32,18 @@ export class RegisterComponent implements OnInit {
   }
   getCountries() {
     this.authService.getCountries().subscribe(
-      (res: Country[]) => (this.countries = res),
+      (res: Country[]) =>
+        (this.countries = res.sort((c1, c2) => {
+          if (c1 > c2) {
+            return 1;
+          }
+
+          if (c1 < c2) {
+            return -1;
+          }
+
+          return 0;
+        })),
       error => {
         this.alertifyService.error(error);
       }
@@ -99,6 +111,10 @@ export class RegisterComponent implements OnInit {
     }
 
     console.log(this.registerForm);
+  }
+  onChange(numericCode: number) {
+    const country = this.countries.find(c => c.numericCode === numericCode);
+    this.flagClass = "flag flag-" + country.alpha2Code.toLocaleLowerCase();
   }
   cancel() {
     this.model = {};

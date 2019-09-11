@@ -22,6 +22,7 @@ namespace DatingApp.API.Data
             modelBuilder.Entity<Like>()
             .HasKey(k => new { k.LikerId, k.LikeeId });
 
+
             modelBuilder.Entity<Country>()
              .HasKey(k => new { k.NumericCode });
 
@@ -29,6 +30,7 @@ namespace DatingApp.API.Data
             modelBuilder.Entity<Like>()
             .HasOne(k => k.Likee)
             .WithMany(u => u.Likers)
+             .HasForeignKey(k => k.LikeeId)
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Message>()
@@ -49,6 +51,7 @@ namespace DatingApp.API.Data
             modelBuilder.Entity<Like>()
             .HasOne(k => k.Liker)
             .WithMany(u => u.Likees)
+             .HasForeignKey(k => k.LikerId)
             .OnDelete(DeleteBehavior.Restrict);
 
 
