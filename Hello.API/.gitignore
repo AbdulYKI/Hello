@@ -1,0 +1,5 @@
+.vscode
+*.db
+obj
+bin
+*.cs.bak
